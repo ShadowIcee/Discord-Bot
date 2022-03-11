@@ -76,11 +76,14 @@ async def vote(ctx, name, side, amount):
 async def decide(ctx, name, side):
 	bets[name].decide(side)
 	await ctx.channel.send("Decison was reached and points have been distributed. ")
+	
 
 @bot.command()
 async def close(ctx, name):
 	bets[name].close()
 	await ctx.channel.send(name + " is now closed to all bets.")
+	del bets[name]
+	bets.pop(name)
 keep_alive()
 bot.run(os.getenv('token'))
 
